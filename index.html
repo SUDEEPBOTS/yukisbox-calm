@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>YUKI'S BOX — Calm / Kit Interface Study</title>
+
+  <!-- Google Fonts: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Background Ambience & Canvas Wrapper -->
+  <div class="canvas-wrapper">
+    
+    <!-- Top Branding Header (Exact CALM / KIT Typographic Header) -->
+    <header class="kit-header">
+      <div class="brand-badge-wrap">
+        <span class="status-dot"></span>
+        <span class="status-text" id="serverStatusBadge">LIVE &bull; YUKISBOX EDGE &bull; CONNECTING...</span>
+      </div>
+      <h1 class="kit-title">Y U K I &nbsp;/&nbsp; B O X</h1>
+      <p class="kit-subtitle">I N T E R F A C E &nbsp;&nbsp; S T U D Y &nbsp;&bull;&nbsp; E D G E &nbsp;&nbsp; V A U L T</p>
+    </header>
+
+    <!-- Main Study Grid -->
+    <main class="study-grid">
+
+      <!-- ================= 01. UPLOADER STAGE (PRIMARY COMPONENT) ================= -->
+      <section class="kit-card card-uploader">
+        <div class="card-header">
+          <span class="card-num">01.</span>
+          <span class="card-label">EDGE MEDIA UPLOADER</span>
+          <div class="card-badge" id="statsFilesCount">544K+ Files</div>
+        </div>
+
+        <!-- Segmented Mode Tabs (Card 09 Style) -->
+        <div class="segmented-control" id="uploadModeTabs">
+          <button class="tab-btn active" data-mode="file">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="17 8 12 3 7 8"></polyline>
+              <line x1="12" y1="3" x2="12" y2="15"></line>
+            </svg>
+            <span>File</span>
+          </button>
+
+          <button class="tab-btn" data-mode="url">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path>
+            </svg>
+            <span>URL</span>
+          </button>
+
+          <button class="tab-btn" data-mode="tg">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="22" y1="2" x2="11" y2="13"></line>
+              <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+            </svg>
+            <span>Telegram</span>
+          </button>
+
+          <button class="tab-btn" data-mode="paste">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+            <span>Paste</span>
+          </button>
+        </div>
+
+        <!-- Mode Form Containers -->
+        <div class="uploader-body">
+          
+          <!-- Mode 1: Drag & Drop File -->
+          <div class="mode-panel active" id="panelFile">
+            <div class="drop-zone" id="dropZone">
+              <input type="file" id="fileInput" class="hidden-input">
+              <div class="drop-icon-pill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"></path>
+                  <polyline points="12 13 12 9 10 11"></polyline>
+                  <line x1="12" y1="9" x2="12" y2="16"></line>
+                </svg>
+              </div>
+              <h4 class="drop-title" id="dropTitle">Choose file or drag & drop here</h4>
+              <p class="drop-subtitle" id="dropSubtitle">Up to 500 MB &bull; Video, Images, Audio, Documents &bull; Cloudflare Edge</p>
+              
+              <div class="selected-file-pill" id="selectedFilePill" style="display: none;">
+                <span class="file-pill-name" id="selectedFileName">filename.jpg</span>
+                <span class="file-pill-size" id="selectedFileSize">(2.4 MB)</span>
+                <button class="pill-remove-btn" id="removeFileBtn" title="Remove">&times;</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mode 2: Remote URL Import -->
+          <div class="mode-panel" id="panelUrl">
+            <div class="input-pill-wrap">
+              <svg class="pill-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="2" y1="12" x2="22" y2="12"></line>
+                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+              </svg>
+              <input type="url" placeholder="https://example.com/video.mp4" id="urlInput" class="calm-text-input">
+            </div>
+            <p class="input-helper">Yukisbox fetches and permanently caches the remote file directly on Edge.</p>
+          </div>
+
+          <!-- Mode 3: Telegram Import -->
+          <div class="mode-panel" id="panelTg">
+            <div class="input-pill-wrap">
+              <svg class="pill-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+              <input type="url" placeholder="https://t.me/channel/1234" id="tgInput" class="calm-text-input">
+            </div>
+            <p class="input-helper">Instant media extraction from any public Telegram post or direct link.</p>
+          </div>
+
+          <!-- Mode 4: Text / Paste Snippet -->
+          <div class="mode-panel" id="panelPaste">
+            <div class="textarea-pill-wrap">
+              <textarea placeholder="Paste code snippet, logs, or notes here..." id="pasteInput" class="calm-textarea"></textarea>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Optional Parameters (Toggles & Custom URL) -->
+        <div class="uploader-options">
+          <div class="options-toggle-bar" id="toggleOptionsBtn">
+            <span class="options-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <span>Security & Custom Slug Options</span>
+            </span>
+            <span class="options-chevron" id="optionsChevron">&darr;</span>
+          </div>
+
+          <div class="options-drawer" id="optionsDrawer" style="display: none;">
+            <div class="drawer-grid">
+              <div class="drawer-field">
+                <label>Custom Slug (Optional)</label>
+                <div class="input-pill-wrap small">
+                  <span class="prefix">yukisbox.com/file/</span>
+                  <input type="text" placeholder="my-slug" id="customSlugInput" class="calm-text-input">
+                </div>
+              </div>
+
+              <div class="drawer-field">
+                <label>Password Protection</label>
+                <div class="input-pill-wrap small">
+                  <input type="password" placeholder="Leave empty for public" id="passwordInput" class="calm-text-input">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Action Buttons (Exact Card 03 Style) -->
+        <div class="buttons-row">
+          <button class="calm-btn btn-primary" id="startUploadBtn">
+            <span>Upload Now</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </button>
+
+          <button class="calm-btn btn-secondary" id="clearBtn">
+            <span>Reset</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ================= 02. REAL-TIME PROGRESS & SPEED GAUGE (Card 07 Style) ================= -->
+      <section class="kit-card card-progress-box" id="progressCard">
+        <div class="card-header">
+          <span class="card-num">02.</span>
+          <span class="card-label">UPLOAD PROGRESS &amp; SPEED</span>
+        </div>
+        
+        <div class="progress-block">
+          <div class="progress-metrics-row">
+            <span class="metric-state" id="uploadStateLabel">Ready to upload</span>
+            <span class="metric-speed" id="uploadSpeedLabel">0.0 MB/s</span>
+          </div>
+
+          <!-- Exact Neumorphic Inset Pill Track (Card 07) -->
+          <div class="progress-row">
+            <div class="progress-track">
+              <div class="progress-fill" id="uploadProgressFill" style="width: 0%;"></div>
+            </div>
+            <span class="progress-val" id="uploadProgressVal">0%</span>
+          </div>
+
+          <div class="progress-sub-row">
+            <span class="sub-transferred" id="transferredLabel">0 KB / 0 KB</span>
+            <span class="sub-eta" id="etaLabel">-- s remaining</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 03. NOTIFICATION & RESULT (Card 08 Style) ================= -->
+      <section class="kit-card card-result-box" id="resultCard" style="display: none;">
+        <div class="card-header">
+          <span class="card-num">03.</span>
+          <span class="card-label">EDGE GENERATED LINK</span>
+        </div>
+
+        <!-- Alert Banner (Exact Card 08) -->
+        <div class="alert-banner" id="resultAlert">
+          <div class="alert-icon-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="alert-content">
+            <h5 class="alert-title">All set!</h5>
+            <p class="alert-desc">Your file has been cached across Cloudflare Edge.</p>
+          </div>
+        </div>
+
+        <!-- Link Copy Pills -->
+        <div class="result-links-wrap">
+          <div class="link-pill-group">
+            <label>Permanent Direct Link</label>
+            <div class="copy-pill">
+              <input type="text" readonly id="resDirectLink" class="copy-input">
+              <button class="copy-pill-btn" id="copyDirectBtn">Copy</button>
+            </div>
+          </div>
+
+          <div class="link-pill-group">
+            <label>Raw Download Stream</label>
+            <div class="copy-pill">
+              <input type="text" readonly id="resRawLink" class="copy-input">
+              <button class="copy-pill-btn" id="copyRawBtn">Copy</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="result-actions">
+          <a href="#" target="_blank" id="openLinkBtn" class="calm-btn btn-primary small">
+            <span>Open in Browser</span>
+            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+              <polyline points="15 3 21 3 21 9"></polyline>
+              <line x1="10" y1="14" x2="21" y2="3"></line>
+            </svg>
+          </a>
+        </div>
+      </section>
+
+      <!-- ================= 04. EDGE NETWORK HEALTH (Card 06 Style) ================= -->
+      <section class="kit-card card-edge-profile">
+        <div class="card-header">
+          <span class="card-num">04.</span>
+          <span class="card-label">EDGE ARCHITECTURE</span>
+        </div>
+
+        <div class="profile-pill">
+          <!-- Stylized Minimal Avatar -->
+          <div class="profile-avatar">
+            <div class="avatar-head"></div>
+            <div class="avatar-body"></div>
+          </div>
+
+          <div class="profile-meta">
+            <h4 class="profile-name">Yukisbox Edge</h4>
+            <p class="profile-role">Multi-Region Cloudflare CDN &bull; 206 Stream</p>
+            <p class="profile-loc">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <span id="edgeRegionText">BOM / SIN Edge Cluster</span>
+            </p>
+          </div>
+
+          <div class="latency-pill" id="edgeLatencyBadge">28 ms</div>
+        </div>
+
+        <!-- 3 Quick Metrics Pills -->
+        <div class="edge-metrics-strip">
+          <div class="mini-metric">
+            <span class="m-val" id="statFilesVal">544.8K</span>
+            <span class="m-label">Stored Files</span>
+          </div>
+          <div class="mini-metric">
+            <span class="m-val">99.99%</span>
+            <span class="m-label">Uptime</span>
+          </div>
+          <div class="mini-metric">
+            <span class="m-val">206 OK</span>
+            <span class="m-label">Range Seeking</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 05. COLOR PALETTE DESIGN TOKENS (Card 01 Style) ================= -->
+      <section class="kit-card card-tokens">
+        <div class="card-header">
+          <span class="card-num">05.</span>
+          <span class="card-label">DESIGN SYSTEM TOKENS</span>
+        </div>
+
+        <div class="swatches-row">
+          <div class="swatch-item" data-hex="#6B7F6E" title="Click to copy HEX">
+            <div class="swatch-circle" style="background-color: #6B7F6E;"></div>
+            <span class="swatch-name">Sage</span>
+            <span class="swatch-hex">#6B7F6E</span>
+          </div>
+
+          <div class="swatch-item" data-hex="#A7B8A7" title="Click to copy HEX">
+            <div class="swatch-circle" style="background-color: #A7B8A7;"></div>
+            <span class="swatch-name">Moss</span>
+            <span class="swatch-hex">#A7B8A7</span>
+          </div>
+
+          <div class="swatch-item" data-hex="#D9E1D9" title="Click to copy HEX">
+            <div class="swatch-circle" style="background-color: #D9E1D9;"></div>
+            <span class="swatch-name">Mist</span>
+            <span class="swatch-hex">#D9E1D9</span>
+          </div>
+
+          <div class="swatch-item" data-hex="#F4EFE8" title="Click to copy HEX">
+            <div class="swatch-circle" style="background-color: #F4EFE8; border: 1px solid rgba(0,0,0,0.06);"></div>
+            <span class="swatch-name">Ivory</span>
+            <span class="swatch-hex">#F4EFE8</span>
+          </div>
+
+          <div class="swatch-item" data-hex="#C9BDAF" title="Click to copy HEX">
+            <div class="swatch-circle" style="background-color: #C9BDAF;"></div>
+            <span class="swatch-name">Sand</span>
+            <span class="swatch-hex">#C9BDAF</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 06. RECENT VAULT (Card 10 Bottom Nav Style) ================= -->
+      <section class="kit-card card-vault">
+        <div class="card-header">
+          <span class="card-num">06.</span>
+          <span class="card-label">LOCAL VAULT HISTORY</span>
+          <button class="clear-vault-btn" id="clearVaultBtn">Clear</button>
+        </div>
+
+        <div class="vault-list" id="vaultList">
+          <div class="empty-vault-state">
+            <p>No recent uploads stored locally.</p>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Navigation App Bar (Card 10 Style) -->
+    <nav class="calm-nav-bar">
+      <button class="calm-nav-item active" id="navHome">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+        </svg>
+        <span>Upload</span>
+        <div class="nav-active-dot"></div>
+      </button>
+
+      <button class="calm-nav-item" id="navSpeed">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+        <span>Speed</span>
+        <div class="nav-active-dot"></div>
+      </button>
+
+      <button class="calm-nav-item" id="navVault">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+        </svg>
+        <span>Vault</span>
+        <div class="nav-active-dot"></div>
+      </button>
+
+      <button class="calm-nav-item" id="navDocs">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+        </svg>
+        <span>API Docs</span>
+        <div class="nav-active-dot"></div>
+      </button>
+    </nav>
+
+    <!-- Floating Toast Notification -->
+    <div class="calm-toast" id="calmToast">Copied to clipboard! ✨</div>
+
+    <!-- API Docs Modal -->
+    <div class="docs-modal" id="docsModal">
+      <div class="docs-modal-card">
+        <div class="card-header">
+          <span class="card-label">YUKISBOX DEVELOPER API</span>
+          <button class="modal-close" id="closeDocsModal">&times;</button>
+        </div>
+        <div class="docs-modal-body">
+          <h5>cURL Command:</h5>
+          <pre><code>curl -F "file=@photo.jpg" https://yukisbox.com/upload</code></pre>
+
+          <h5>Python (requests):</h5>
+          <pre><code>import requests
+res = requests.post("https://yukisbox.com/upload", files={"file": open("photo.jpg", "rb")})
+print(res.json()["url"])</code></pre>
+
+          <h5>JavaScript (fetch):</h5>
+          <pre><code>const form = new FormData();
+form.append("file", fileInput.files[0]);
+const res = await fetch("https://yukisbox.com/upload", { method: "POST", body: form });
+const data = await res.json();
+console.log(data.url);</code></pre>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
